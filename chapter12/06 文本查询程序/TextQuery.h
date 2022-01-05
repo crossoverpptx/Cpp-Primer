@@ -1,13 +1,15 @@
 #pragma once
 
-#include <fstream>
-#include <map>
-#include <memory>
-#include <set>
-#include <sstream>
 #include <vector>
+#include <map>
+#include <set>
+#include <memory>
+#include <fstream>
+#include <sstream>
+
 
 class QueryResult;
+
 class TextQuery {
 public:
 	using line_no = std::vector<std::string>::size_type;
@@ -50,8 +52,7 @@ TextQuery::TextQuery(std::ifstream& infile) :
 }
 
 // members
-QueryResult
-TextQuery::query(const std::string& s) const
+QueryResult TextQuery::query(const std::string& s) const
 {
 	static auto notFound = std::make_shared<std::set<line_no>>();
 	auto pos = words_map.find(s);
@@ -69,11 +70,10 @@ TextQuery::query(const std::string& s) const
 }
 
 // non-members
-std::ostream&
-print(std::ostream& os, const QueryResult& result)
+std::ostream& print(std::ostream& os, const QueryResult& result)
 {
-	os << result.sought << " occurs " << result.count
-		<< ((result.count > 1) ? " times" : " time") << std::endl;
+	os << result.sought << " occurs " << result.count 
+	   << ((result.count > 1) ? " times" : " time") << std::endl;
 	for (auto const& n : *result.lines)
 		os << "\t(line " << n << ") " << result.text->at(n - 1) << '\n';
 	return os;

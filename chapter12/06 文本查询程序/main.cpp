@@ -33,4 +33,5 @@ int main()
 {
 	std::ifstream file("storyDataFile.txt");
 	runQueries(file);
+	return 0;
 }
